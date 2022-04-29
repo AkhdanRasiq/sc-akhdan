@@ -1,10 +1,16 @@
 import React from "react"
+import { Link } from 'react-router-dom'
+
 
 function SCHeader() {
   return (
     <div className="headerContainer">
-      <h2 className="txtHeaderTitle">SC-Akhdan</h2>
-      <button className="btnHeaderBookmark">Bookmark</button>
+      <Link to="/">
+        <h2 className="txtHeaderTitle">SC-Akhdan</h2>
+      </Link>
+      <Link to="/bookmark">
+        <button className="btnHeaderBookmark">Bookmark</button>
+      </Link>
     </div>
   )
 }
