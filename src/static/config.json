@@ -1,0 +1,12 @@
+{
+  "connection": {
+    "protocol"    : "https://",
+    "address"     : "asia-southeast2-sejutacita-app.cloudfunctions.net",
+    "port"        : ""
+  },
+  "api": {
+    "base"        : "",
+    "categories"  : "/fee-assessment-categories",
+    "books"       : "/fee-assessment-books"
+  }
+}

@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import * as UTILS from './utils/SCUtil'
+import * as ADAPTER from './utils/SCAdapter'
+import CONFIG from './static/config.json'
+import SCHeader from './components/SCHeader'
+import SCBodyHeader from './components/SCBody/SCBodyHeader'
+
 
 function App() {
+
+  useEffect(() => {
+    const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.categories))
+
+    promise.then((res) => {
+      console.log(res)
+    }, (errReason) => {
+      console.log(errReason)
+    })
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SCHeader />
+      <SCBodyHeader />
     </div>
   );
 }
 
-export default App;
+export default App
