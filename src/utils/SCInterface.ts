@@ -11,3 +11,7 @@ export interface ICategoryState {
 export interface ICategoryProps {
   a_arrCategories: ICategoryState[] | []
 }
+
+export interface IBookCardProps {
+  a_strTitle: string
+}
