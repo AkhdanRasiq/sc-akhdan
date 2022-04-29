@@ -1,3 +1,48 @@
 .bodyHeaderContainer {
-  margin: 0;
+  width: 96vw;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 25px;
+  margin-left: 2vw;
+  margin-right: 2vw;
 }
+
+.bodyHeaderContent {
+  width: 100%;
+
+  // background-color: green;
+  display: flex;
+  flex-direction: column;
+}
+
+.bodyHeaderContentFilter {
+  width: 100%;
+  margin-top: 25px;
+
+  // background-color: green;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+
+
+// WIDE SCREEN
+
+@media only screen and (min-width: 1500px) {
+  .bodyHeaderContent {
+    width: 1500px;
+  }
+}
+
+
+
+// MOBILE SCREEN
+
+// @media only screen and (min-width: 0px) and (max-width: 860px) {
+//   .bodyHeaderContent{
+//     width: 1500px;
+//   }
+// }
