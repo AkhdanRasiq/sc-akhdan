@@ -12,11 +12,11 @@ function SCBookmarkView() {
   const [categories, setCategories] = useState<ICategoryState[] | []>([])
 
   useEffect(() => {
-    const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.categories))
+    const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.books))
 
     promise.then((res) => {
-      console.log(res.data)
-      setCategories(res.data)
+      console.log(res)
+      // setCategories(res.data)
     }, (errReason) => {
       console.log(errReason)
     })

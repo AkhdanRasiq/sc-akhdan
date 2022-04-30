@@ -8,16 +8,16 @@ import TextField from '@mui/material/TextField'
 import { ICategoryProps, ICategoryState } from "../../utils/SCInterface"
 
 
-function SCBodyHeader({ a_arrCategories }: ICategoryProps) {
+function SCBodyHeader({ a_arrCategories, callbackOnCategorySelected }: ICategoryProps) {
   const [selectedCategory, setSelectedCategory] = useState('')
 
   // useEffect(() => {
   //   setSelectedCategory(a_arrCategories[0].id.toString())
   // }, [a_arrCategories])
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const onCategoryChange = (event: SelectChangeEvent) => {
     setSelectedCategory(event.target.value as string)
-    console.log(selectedCategory)
+    callbackOnCategorySelected(Number.parseInt(event.target.value))
   }
 
   return (
@@ -36,7 +36,7 @@ function SCBodyHeader({ a_arrCategories }: ICategoryProps) {
                 defaultValue={selectedCategory}
                 value={selectedCategory}
                 label="Categories"
-                onChange={handleChange}
+                onChange={onCategoryChange}
               >
                 {a_arrCategories.map((item: ICategoryState) => (
                   <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>

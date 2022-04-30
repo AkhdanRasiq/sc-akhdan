@@ -1,4 +1,3 @@
-import { prototype } from "events"
 import React from "react"
 import SCBookCard from "../SCBookCard"
 

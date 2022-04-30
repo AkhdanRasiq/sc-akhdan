@@ -6,14 +6,11 @@ const _axiosInstance = Axios.create({
   baseURL: "https://cors-anywhere-id.herokuapp.com/" + UTIL.serverBaseUrl()
 })
 
-export function getRequest(url: string, params?: JSON, data?: JSON) {
+export function getRequest(url: string, params?: object) {
   return _axiosInstance
   .get(url, {
     params: {
       ...params
-    },
-    data: {
-      ...data
     }
   })
   .then(res => Promise.resolve(res))
