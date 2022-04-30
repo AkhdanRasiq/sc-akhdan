@@ -1,0 +1,31 @@
+@mixin mxBoxModalContainer() {
+  width: 70vw !important;
+  height: 80vh !important;
+}
+
+@mixin mxImgBookModalCover() {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  height: fit-content;
+  width: 200px;
+}
+
+@mixin mxContentContainer() {
+  overflow-y: visible;
+  flex-direction: column;
+  margin-left: 0;
+  margin-top: 10px;
+}
+
+@mixin mxModalParentContainer() {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

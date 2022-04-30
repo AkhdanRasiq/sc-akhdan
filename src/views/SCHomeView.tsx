@@ -24,7 +24,6 @@ function SCHomeView() {
     const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.books), params)
 
     promise.then((res) => {
-      console.log(res.data)
       setBooks(res.data)
     }, (errReason) => {
       console.log(errReason)

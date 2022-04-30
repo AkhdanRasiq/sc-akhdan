@@ -48,46 +48,48 @@ const onEventBook = (event: any) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} className="boxModalContainer">
-          <img src={book.cover_url} alt={book.title} />
-          <div className="contentContainer">
-            <Typography id="modal-modal-title" variant="h3" component="h2">
-              {book.title}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <span style={{ display: 'flex' }}>{book.authors.map((item, index) => (
-                <p>{index > 0 ? "& " + item : item }&ensp;</p>
-              ))}</span>
-            </Typography>
+          <div className="modalParentContainer">
+            <img className="imgBookModalCover" src={book.cover_url} alt={book.title} />
+            <div className="contentContainer">
+              <Typography id="modal-modal-title" variant="h3" component="h2">
+                {book.title}
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <span style={{ display: 'flex' }}>{book.authors.map((item, index) => (
+                  <>{index > 0 ? "& " + item : item }&ensp;</>
+                ))}</span>
+              </Typography>
 
-            <hr />
-            <span className="spanModalInfoIcon">
-              <ArticleIcon fontSize="medium" className="headerIcon" htmlColor="black" />
-              <p>&ensp;{book.sections.length}&ensp;sections&emsp;</p>
-              <AccessAlarmIcon fontSize="medium" className="headerIcon" htmlColor="black" />
-              <p>&ensp;{Math.round(book.audio_length / 60)}&ensp;min</p>
-            </span>
-            <hr />
+              <hr />
+              <span className="spanModalInfoIcon">
+                <ArticleIcon fontSize="medium" className="headerIcon" htmlColor="black" />
+                <p>&ensp;{book.sections.length}&ensp;sections&emsp;</p>
+                <AccessAlarmIcon fontSize="medium" className="headerIcon" htmlColor="black" />
+                <p>&ensp;{Math.round(book.audio_length / 60)}&ensp;min</p>
+              </span>
+              <hr />
 
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <b>What's it about?</b>
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {book.description}
-            </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <b>What's it about?</b>
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {book.description}
+              </Typography>
 
-            <br />
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <b>What's Inside?</b>
-            </Typography>
+              <br />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <b>What's Inside?</b>
+              </Typography>
 
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {book.sections.map((item, index) => (
-                <div className="sectionTitle">
-                  <p>{index + 1}&ensp;{item.title}</p>
-                  <hr />
-                </div>
-              ))}
-            </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {book.sections.map((item, index) => (
+                  <div className="sectionTitle">
+                    <p>{index + 1}&ensp;{item.title}</p>
+                    <hr />
+                  </div>
+                ))}
+              </Typography>
+            </div>
           </div>
         </Box>
       </Modal>
