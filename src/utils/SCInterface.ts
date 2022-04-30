@@ -35,6 +35,7 @@ export interface IBookCardProps {
 }
 
 export interface IBodyPaginationProps {
+  a_isCategorySelected        : number,
   a_iPage                     : number,
   a_IRowsPerPage              : number,
   callbackOnRowsPerPageChange : (iRows: number) => void,

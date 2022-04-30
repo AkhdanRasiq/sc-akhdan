@@ -11,12 +11,7 @@ import SCBodyPagination from '../components/SCBody/SCBodyPagination'
 function SCHomeView() {
   const [categories, setCategories]             = useState<ICategoryState[] | []>([])
   const [books, setBooks]                       = useState<IBookState[] | []>([])
-
-  // const [selectedCategory, setSelectedCategory] = useState(0)
-  // const [page, setPage]                         = useState(0)
-  // const [rowsPerPage, setRowsPerPage]           = useState(10)
-
-  const [fetchConfig, setFetchConfig]           = useState({categoryId: 0, rowsPerPage: 10, page: 0})
+  const [fetchConfig, setFetchConfig]           = useState({categoryId: -1, rowsPerPage: 10, page: 0})
 
 
   useEffect(() => {
@@ -58,40 +53,6 @@ function SCHomeView() {
     setFetchConfig({...fetchConfig, rowsPerPage: iRows, page: 0})
   }
 
-  // const fetchData = () => {
-  //   let params = {
-  //     categoryId  : selectedCategory,
-  //     size        : rowsPerPage,
-  //     page        : page
-  //   }
-
-  //   const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.books), params)
-
-  //   promise.then((res) => {
-  //     console.log(res.data)
-  //     return res.data
-  //   }, (errReason) => {
-  //     console.log(errReason)
-  //   })
-  //   return []
-  // }
-
-  // const onCategorySelected = (iCategoryId: number) => {
-  //   setSelectedCategory(iCategoryId)
-    
-  //   setBooks(fetchData())
-  // }
-
-  // const onPageChange = (iPage: number) => {
-  //   setPage(iPage)
-  //   setBooks(fetchData())
-  // }
-
-  // const onRowsPerPageChange = (iRows: number) => {
-  //   setRowsPerPage(iRows)
-  //   setBooks(fetchData())
-  // }
-
 
   return (
     <div className="homeViewContainer">
@@ -101,6 +62,7 @@ function SCHomeView() {
       />
       <SCBodyContent />
       <SCBodyPagination
+        a_isCategorySelected        = {fetchConfig.categoryId}
         a_iPage                     = {fetchConfig.page}
         a_IRowsPerPage              = {fetchConfig.rowsPerPage}
         callbackOnRowsPerPageChange = {onRowsPerPageChange}
