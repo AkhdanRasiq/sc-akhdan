@@ -1,6 +1,6 @@
 .bookCardContainer {
   height: fit-content;
-  width: 200px;
+  width: 190px;
   display: block;
   margin: 10px;
   border-radius: 15px;
@@ -16,9 +16,34 @@
   }
 }
 
-// .txtBookCardTitle {
-//   width: 75%;
-//   overflow: hidden;
-//   white-space: nowrap;
-//   text-overflow: ellipsis;
-// }
+// MOBILE SCREEN 860-max
+
+@media only screen and (min-width: 0px) and (max-width: 500px) {
+  .bookCardContainer{
+    width: 40vw;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 860px) {
+  .bookCardContainer{
+    width: 28vw;
+  }
+}
+
+@media only screen and (min-width: 860px) and (max-width: 1200px) {
+  .bookCardContainer{
+    width: 21vw;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1380px) {
+  .bookCardContainer{
+    width: 14vw;
+  }
+}
+
+@media only screen and (min-width: 1380px) and (max-width: 1535px) {
+  .bookCardContainer{
+    width: 12vw;
+  }
+}
