@@ -14,12 +14,12 @@ export interface ICategoryState {
 export interface IBookState {
   id                          : number,
   category_id                 : number,
-  author                      : string[] | [],
+  authors                     : string[] | [],
   title                       : string,
   cover_url                   : string,
   audio_length                : number,
   description                 : string,
-  sections                    : _IBookSections[] |[]
+  sections                    : _IBookSections[] | []
 }
 
 
@@ -30,8 +30,12 @@ export interface ICategoryProps {
   callbackOnCategorySelected  : (iCategoryId: number) => void
 }
 
+export interface IBooksProps {
+  a_arrBooks                  : IBookState[] | []
+}
+
 export interface IBookCardProps {
-  a_strTitle                  : string
+  a_objBookDetail             : IBookState
 }
 
 export interface IBodyPaginationProps {

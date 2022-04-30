@@ -25,6 +25,7 @@ function SCHomeView() {
 
     promise.then((res) => {
       console.log(res.data)
+      setBooks(res.data)
     }, (errReason) => {
       console.log(errReason)
     })
@@ -60,7 +61,9 @@ function SCHomeView() {
         a_arrCategories             = {categories}
         callbackOnCategorySelected  = {onCategorySelected}
       />
-      <SCBodyContent />
+      <SCBodyContent
+        a_arrBooks                  = {books}
+      />
       <SCBodyPagination
         a_isCategorySelected        = {fetchConfig.categoryId}
         a_iPage                     = {fetchConfig.page}

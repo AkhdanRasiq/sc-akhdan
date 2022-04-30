@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import router from './static/router'
 import Header from './components/SCHeader'
+import SCBookModal from './components/SCBookModal'
 // import AlertCustom from './components/Util/AlertCustom'
 
 
@@ -16,6 +17,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <Header />
+      <SCBookModal />
       <Routes>
         {router.map((data) => (
           <Route key={data.id} path={data.path} element={<data.element />} />

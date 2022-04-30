@@ -1,15 +1,16 @@
 import React from "react"
+import { IBooksProps } from "../../utils/SCInterface"
 import SCBookCard from "../SCBookCard"
 
 
-function SCBodyContent() {
+function SCBodyContent({ a_arrBooks } : IBooksProps) {
   return (
     <div className="bodyContentContainer">
       <div className="bodyContentList">
-        {Array(2).fill(Array(2)).map((_, index) => (
+        {a_arrBooks.map((item, index) => (
           <SCBookCard
-            key={index}
-            a_strTitle={"This Title is very awesome " + (index + 1)}
+            key               = {index}
+            a_objBookDetail   = {item}
           />
         ))}
       </div>

@@ -2,19 +2,17 @@ import React from "react"
 import { IBookCardProps } from "../utils/SCInterface"
 import { IconButton } from "@mui/material"
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+import { eventDispatcher } from "../utils/SCUtil"
 
-function SCBookCard({ a_strTitle }: IBookCardProps) {
+function SCBookCard({ a_objBookDetail }: IBookCardProps) {
+
+  const onBookSelected = () => {
+    eventDispatcher('book', { detail: a_objBookDetail })
+  }
+
   return (
     <div className="bookCardContainer">
-      <div className="imgBookCard">
-        <IconButton id="btnBookmark" >
-          <BookmarkBorderIcon fontSize="large" className="headerIcon" htmlColor="white" />
-        </IconButton>
-      </div>
-      {/* <img className="imgBookCard" src="#" alt="dummy" /> */}
-
-      
-      <p className="txtBookCardTitle">{a_strTitle}</p>
+      <img className="imgBookCard" src={a_objBookDetail.cover_url} alt="a_objBookDetail.title" onClick={onBookSelected} />
     </div>
   )
 }

@@ -16,17 +16,22 @@ function SCBodyPagination({ a_isCategorySelected, a_iPage, a_IRowsPerPage, callb
 
   return (
     <div className="bodyPaginationContainer">
-      <TablePagination
-        component             = "div"
-        count                 = {100}
-        page                  = {a_iPage}
-        onPageChange          = {handleChangePage}
-        rowsPerPage           = {a_IRowsPerPage}
-        onRowsPerPageChange   = {handleChangeRowsPerPage}
-        SelectProps           = {{disabled: a_isCategorySelected < 0 ? true : false}}
-        backIconButtonProps   = {{disabled: a_isCategorySelected < 0 ? true : false}}
-        nextIconButtonProps   = {{disabled: a_isCategorySelected < 0 ? true : false}}
-      />
+      { a_isCategorySelected < 0
+      ?
+        <div style={{textAlign: "center"}}>
+          Select Categories to start exploring ^_^
+        </div>
+      :
+        <TablePagination
+          component             = "div"
+          labelRowsPerPage      = "Item per page:"
+          count                 = {100}
+          page                  = {a_iPage}
+          onPageChange          = {handleChangePage}
+          rowsPerPage           = {a_IRowsPerPage}
+          onRowsPerPageChange   = {handleChangeRowsPerPage}
+        />
+      }
     </div>
   )
 }
