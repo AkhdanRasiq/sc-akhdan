@@ -26,8 +26,6 @@
   }
 }
 
-
-
 .sectionTitle {
   &> p {
     color:$blue-color;
@@ -59,40 +57,27 @@
 
 // MOBILE SCREEN
 
-@media only screen and (min-width: 0px) and (max-width: 500px) {
+@media only screen and (min-width: 0px) and (max-width: 860px) {
   .boxModalContainer {
     @include mxBoxModalContainer();
   }
 
   .imgBookModalCover {
     @include mxImgBookModalCover();
-
-    // display: flex;
-    // margin-left: auto;
-    // margin-right: auto;
-    // height: fit-content;
-    // width: 200px;
   }
 
   .contentContainer {
     @include mxContentContainer();
-
-    // overflow-y: hidden;
-    // flex-direction: column;
-    // margin-left: 0;
-    // margin-top: 10px;
   }
 
   .modalParentContainer {
     @include mxModalParentContainer();
-    // display: flex;
-    // flex-direction: column;
-    // overflow-y: auto;
-    // -ms-overflow-style: none;
-    // scrollbar-width: none;
+  }
+}
 
-    // &::-webkit-scrollbar {
-    //   display: none;
-    // }
+@media only screen and (min-width: 860px) and (max-width: 1100px) {
+  .imgBookModalCover {
+    height: 450px;
+    width: fit-content;
   }
 }
