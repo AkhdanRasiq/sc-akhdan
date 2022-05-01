@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SCBodyHeader from '../components/SCBody/SCBodyHeader'
-import { ICategoryState, IBookState } from '../utils/SCInterface'
+import { IBookState } from '../utils/SCInterface'
 import SCBodyContent from '../components/SCBody/SCBodyContent'
 
 import { useAppSelector } from '../app/hooks'
@@ -11,6 +11,9 @@ function SCBookmarkView() {
   const [books, setBooks]   = useState<IBookState[] | []>([])
   const bookList            = useAppSelector(selectBookList)
 
+  useEffect(() => {
+    handleRefreshBookmark()
+  }, [])
 
   useEffect(() => {
     window.addEventListener("refreshBookmark", handleRefreshBookmark)
