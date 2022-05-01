@@ -40,7 +40,6 @@ function SCBodyHeader({ a_arrCategories, callbackOnSearchChange, callbackOnCateg
           sx        = {{ marginTop: "25px" }}
           id        = "outlined-basic" label="Search"
           variant   = "outlined"
-          // disabled  = {selectedCategory != '' ? false : (a_bIsBookmark ? false : true)}
           onChange  = {onSearchTyped}
           value     = {searchText}
           fullWidth
