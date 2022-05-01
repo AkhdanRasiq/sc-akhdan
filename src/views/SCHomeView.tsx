@@ -26,10 +26,10 @@ function SCHomeView() {
   
       const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.books), params)
   
-      promise.then((res) => {
+      promise.then((res: any) => {
         setBooks(res.data)
         setSavedBooks(res.data)
-      }, (errReason) => {
+      }, (errReason: any) => {
         console.log(errReason)
       })
     } else {
@@ -40,9 +40,9 @@ function SCHomeView() {
   useEffect(() => {
     const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.categories))
 
-    promise.then((res) => {
+    promise.then((res: any) => {
       setCategories(res.data)
-    }, (errReason) => {
+    }, (errReason: any) => {
       console.log(errReason)
     })
   }, [])
@@ -73,7 +73,9 @@ function SCHomeView() {
           if (elementChild.toLowerCase() === strSearch.toLowerCase()) {
             arrFilteredBooks.push(element)
           }
+          return null
         })
+        return null
       })
     }
     else

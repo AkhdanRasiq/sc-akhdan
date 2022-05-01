@@ -5,7 +5,10 @@ import Modal from '@mui/material/Modal'
 import { IBookState } from "../utils/SCInterface"
 import ArticleIcon from '@mui/icons-material/Article'
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { IconButton } from "@mui/material"
+import "react-responsive-carousel/lib/styles/carousel.min.css"
+import { Carousel } from 'react-responsive-carousel'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -20,10 +23,11 @@ const style = {
 }
 
 function SCBookModal() {
-  const [open, setOpen] = useState(false)
-  const [book, setBook] = useState<IBookState>({id: 1, category_id: 0, authors: ['Lorem ipsum'], title: 'Lorem', cover_url: 'https://google.com', audio_length: 1, description: 'Lorem Ipsum', sections: [{title: 'Lorem', content: 'Ipsum'}]})
-  const handleOpen      = () => setOpen(true)
-  const handleClose     = () => setOpen(false)
+  const [open, setOpen]                         = useState(false)
+  const [book, setBook]                         = useState<IBookState>({id: 1, category_id: 0, authors: ['Lorem ipsum'], title: 'Lorem', cover_url: 'https://google.com', audio_length: 1, description: 'Lorem Ipsum', sections: [{title: 'Lorem', content: 'Ipsum'}]})
+  const [openSection, setOpenSection]           = useState(false)
+  const [selectedSection, setSelectedSection]   = useState(0)
+  const handleOpen                              = () => setOpen(true)
 
 
   useEffect(() => {
@@ -33,9 +37,24 @@ function SCBookModal() {
     }
 })
 
+const handleClose = () => {
+  setOpen(false)
+  setOpenSection(false)
+}
+
 const onEventBook = (event: any) => {
   setBook(event.detail)
   handleOpen()
+}
+
+const onOpenSection = (event: any) => {
+  setOpenSection(true)
+  setSelectedSection(Number.parseInt(event.target.childNodes[0].data))
+  console.log(Number.parseInt(event.target.childNodes[0].data))
+}
+
+const onCloseSection = () => {
+  setOpenSection(false)
 }
 
 
@@ -48,49 +67,89 @@ const onEventBook = (event: any) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} className="boxModalContainer">
-          <div className="modalParentContainer">
-            <img className="imgBookModalCover" src={book.cover_url} alt={book.title} />
-            <div className="contentContainer">
-              <Typography id="modal-modal-title" variant="h3" component="h2">
-                {book.title}
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <span style={{ display: 'flex' }}>{book.authors.map((item, index) => (
-                  <>{index > 0 ? "& " + item : item }&ensp;</>
-                ))}</span>
-              </Typography>
+          { !openSection
+            ?
+            <div className="modalParentContainer">
+              <img className="imgBookModalCover" src={book.cover_url} alt={book.title} />
+              <div className="contentContainer">
+                <Typography id="modal-modal-title" variant="h3" component="h2">
+                  {book.title}
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  <span style={{ display: 'flex' }}>{book.authors.map((item, index) => (
+                    <>{index > 0 ? "& " + item : item }&ensp;</>
+                  ))}</span>
+                </Typography>
 
-              <hr />
-              <span className="spanModalInfoIcon">
-                <ArticleIcon fontSize="medium" className="headerIcon" htmlColor="black" />
-                <p>&ensp;{book.sections.length}&ensp;sections&emsp;</p>
-                <AccessAlarmIcon fontSize="medium" className="headerIcon" htmlColor="black" />
-                <p>&ensp;{Math.round(book.audio_length / 60)}&ensp;min</p>
-              </span>
-              <hr />
+                <hr />
+                <span className="spanModalInfoIcon">
+                  <ArticleIcon fontSize="medium" className="headerIcon" htmlColor="black" />
+                  <p>&ensp;{book.sections.length}&ensp;sections&emsp;</p>
+                  <AccessAlarmIcon fontSize="medium" className="headerIcon" htmlColor="black" />
+                  <p>&ensp;{Math.round(book.audio_length / 60)}&ensp;min</p>
+                </span>
+                <hr />
 
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <b>What's it about?</b>
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                {book.description}
-              </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  <b>What's it about?</b>
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  {book.description}
+                </Typography>
 
-              <br />
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <b>What's Inside?</b>
-              </Typography>
+                <br />
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  <b>What's Inside?</b>
+                </Typography>
 
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  {book.sections.map((item, index) => (
+                    <div className="sectionTitle">
+                      <p key={index} onClick={onOpenSection}>{index + 1}&ensp;{item.title}</p>
+                      <hr />
+                    </div>
+                  ))}
+                </Typography>
+              </div>
+            </div>
+            :
+            <div className="modalReadBookContainer">
+              <div className="btnReadBookBack">
+                <IconButton onClick={onCloseSection}>
+                  <ArrowBackIosNewIcon fontSize="large" />
+                </IconButton>
+              </div>
+
+              <Carousel
+                className     = 'carrouselBanner'
+                autoPlay      = {false}
+                infiniteLoop  = {false}
+                showStatus    = {true}
+                showThumbs    = {false}
+                showIndicators= {false}
+                selectedItem  = {selectedSection-1}
+              >
                 {book.sections.map((item, index) => (
-                  <div className="sectionTitle">
-                    <p>{index + 1}&ensp;{item.title}</p>
-                    <hr />
+                  <div key={index}>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                      <b>{item.title}</b>
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                      {item.content}
+                    </Typography>
                   </div>
                 ))}
-              </Typography>
+                {/* <div>
+                    <img src="assets/2.jpeg" />
+                    <p className="legend">Legend 2</p>
+                </div>
+                <div>
+                    <img src="assets/3.jpeg" />
+                    <p className="legend">Legend 3</p>
+                </div> */}
+            </Carousel>
             </div>
-          </div>
+          }
         </Box>
       </Modal>
     </div>
