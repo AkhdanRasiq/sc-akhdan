@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -8,35 +8,55 @@ import TextField from '@mui/material/TextField'
 import { ICategoryProps, ICategoryState } from "../../utils/SCInterface"
 
 
-function SCBodyHeader({ a_arrCategories, callbackOnCategorySelected }: ICategoryProps) {
+function SCBodyHeader({ a_arrCategories, callbackOnSearchChange, callbackOnCategorySelected }: ICategoryProps) {
   const [selectedCategory, setSelectedCategory] = useState('')
+  const [searchText, setSearchText]             = useState('')
+  const isMounted                               = useRef(false)
 
-  // useEffect(() => {
-  //   setSelectedCategory(a_arrCategories[0].id.toString())
-  // }, [a_arrCategories])
+
+  useEffect(() => {
+    if(isMounted.current) {
+      callbackOnSearchChange(searchText)
+    } else {
+     isMounted.current = true;
+    }
+  }, [searchText])
 
   const onCategoryChange = (event: SelectChangeEvent) => {
     setSelectedCategory(event.target.value as string)
     callbackOnCategorySelected(Number.parseInt(event.target.value))
   }
 
+  const onSearchTyped = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value)
+  }
+
+
   return (
     <div className="bodyHeaderContainer">
       <div className="bodyHeaderContent">
         <h2>Explore</h2>
-        <TextField sx={{ marginTop: "25px" }} id="outlined-basic" label="Search" variant="outlined" fullWidth disabled={selectedCategory != '' ? false : true}/>
+        <TextField
+          sx        = {{ marginTop: "25px" }}
+          id        = "outlined-basic" label="Search"
+          variant   = "outlined"
+          disabled  = {selectedCategory != '' ? false : true}
+          onChange  = {onSearchTyped}
+          value     = {searchText}
+          fullWidth
+        />
 
         <div className="bodyHeaderContentFilter">
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Categories</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                defaultValue={selectedCategory}
-                value={selectedCategory}
-                label="Categories"
-                onChange={onCategoryChange}
+                labelId       = "demo-simple-select-label"
+                id            = "demo-simple-select"
+                defaultValue  = {selectedCategory}
+                value         = {selectedCategory}
+                label         = "Categories"
+                onChange      = {onCategoryChange}
               >
                 {a_arrCategories.map((item: ICategoryState) => (
                   <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>

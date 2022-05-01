@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as UTILS from '../utils/SCUtil'
 import * as ADAPTER from '../utils/SCAdapter'
 import CONFIG from '../static/config.json'
@@ -11,23 +11,30 @@ import SCBodyPagination from '../components/SCBody/SCBodyPagination'
 function SCHomeView() {
   const [categories, setCategories]             = useState<ICategoryState[] | []>([])
   const [books, setBooks]                       = useState<IBookState[] | []>([])
+  const [savedBooks, setSavedBooks]             = useState<IBookState[] | []>([])
   const [fetchConfig, setFetchConfig]           = useState({categoryId: -1, rowsPerPage: 10, page: 0})
+  const isMounted                               = useRef(false)
 
 
   useEffect(() => {
-    let params = {
-      categoryId  : fetchConfig.categoryId,
-      size        : fetchConfig.rowsPerPage,
-      page        : fetchConfig.page
+    if(isMounted.current) {
+      let params = {
+        categoryId  : fetchConfig.categoryId,
+        size        : fetchConfig.rowsPerPage,
+        page        : fetchConfig.page
+      }
+  
+      const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.books), params)
+  
+      promise.then((res) => {
+        setBooks(res.data)
+        setSavedBooks(res.data)
+      }, (errReason) => {
+        console.log(errReason)
+      })
+    } else {
+     isMounted.current = true;
     }
-
-    const promise = ADAPTER.getRequest(UTILS.getApiUrl(CONFIG.api.books), params)
-
-    promise.then((res) => {
-      setBooks(res.data)
-    }, (errReason) => {
-      console.log(errReason)
-    })
   }, [fetchConfig])
 
   useEffect(() => {
@@ -53,11 +60,39 @@ function SCHomeView() {
     setFetchConfig({...fetchConfig, rowsPerPage: iRows, page: 0})
   }
 
+  const onSearchChange = (strSearch: string) => {
+    const arrFilteredBooks: IBookState[] = []
+
+    if(savedBooks.length !== 0) {
+      console.log(strSearch) // Remove on production
+      savedBooks.find((element) => {
+        if (element.title.toLowerCase() === strSearch.toLowerCase()) {
+          arrFilteredBooks.push(element)
+        }
+        element.authors.find((elementChild) => {
+          if (elementChild.toLowerCase() === strSearch.toLowerCase()) {
+            arrFilteredBooks.push(element)
+          }
+        })
+      })
+    }
+    else
+      console.log("Books Empty!")
+    
+    setBooks(arrFilteredBooks)
+
+    if (strSearch === "")
+      setBooks(savedBooks)
+
+    console.log(arrFilteredBooks) // Remove on production
+  }
+
 
   return (
     <div className="homeViewContainer">
       <SCBodyHeader
         a_arrCategories             = {categories}
+        callbackOnSearchChange      = {onSearchChange}
         callbackOnCategorySelected  = {onCategorySelected}
       />
       <SCBodyContent

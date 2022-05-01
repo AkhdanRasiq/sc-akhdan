@@ -27,6 +27,7 @@ export interface IBookState {
 
 export interface ICategoryProps {
   a_arrCategories             : ICategoryState[] | [],
+  callbackOnSearchChange      : (strSearch: string) => void,
   callbackOnCategorySelected  : (iCategoryId: number) => void
 }
 
