@@ -6,7 +6,7 @@ import { IAlert } from '../utils/SCInterface'
 const initialState: IAlert = {
   status      : false,
   severity    : 'success' || 'info' || 'warning' || 'error' || undefined,
-  msg         : "Success add Item to Basket"
+  msg         : ""
 }
 
 const alertSlice = createSlice({
@@ -16,7 +16,7 @@ const alertSlice = createSlice({
     setAlert: (state, action: PayloadAction<any>) => {
       state.status    = action.payload.status
       state.severity  = action.payload.severity || 'success'
-      state.msg       = action.payload.msg      || "Add Book to Bookmark"
+      state.msg       = action.payload.msg      || ""
     }
   }
 })

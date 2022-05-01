@@ -7,9 +7,9 @@ interface _IBookSections {
 }
 
 export interface IAlert {
-  status      : boolean,
-  severity    : AlertColor,
-  msg         : string
+  status                      : boolean,
+  severity                    : AlertColor,
+  msg                         : string
 }
 
 
@@ -37,7 +37,8 @@ export interface IBookState {
 export interface ICategoryProps {
   a_arrCategories             : ICategoryState[] | [],
   callbackOnSearchChange      : (strSearch: string) => void,
-  callbackOnCategorySelected  : (iCategoryId: number) => void
+  callbackOnCategorySelected  : (iCategoryId: number) => void,
+  a_bIsBookmark               ?: boolean
 }
 
 export interface IBooksProps {
@@ -54,4 +55,24 @@ export interface IBodyPaginationProps {
   a_IRowsPerPage              : number,
   callbackOnRowsPerPageChange : (iRows: number) => void,
   callbackOnPageChange        : (iPage: number) => void
+}
+
+
+
+// SLICE
+
+interface _IBookmark {
+  id                          : number,
+  category_id                 : number,
+  authors                     : Array<string>,
+  title                       : string,
+  cover_url                   : string,
+  audio_length                : number,
+  description                 : string,
+  sections                    : Array<_IBookSections>,
+  qty                         : number
+}
+
+export interface IBookList {
+  bookList                    : Array<_IBookmark>
 }

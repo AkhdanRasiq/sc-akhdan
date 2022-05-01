@@ -64,7 +64,6 @@ function SCHomeView() {
     const arrFilteredBooks: IBookState[] = []
 
     if(savedBooks.length !== 0) {
-      console.log(strSearch) // Remove on production
       savedBooks.find((element) => {
         if (element.title.toLowerCase() === strSearch.toLowerCase()) {
           arrFilteredBooks.push(element)
@@ -85,8 +84,6 @@ function SCHomeView() {
 
     if (strSearch === "")
       setBooks(savedBooks)
-
-    console.log(arrFilteredBooks) // Remove on production
   }
 
 

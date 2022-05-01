@@ -13,7 +13,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
 
 import { useAppDispatch } from '../app/hooks'
+import { addBook, removeBook } from '../features/bookSlice'
 import { setAlert } from '../features/alertSlice'
+
+import { useAppSelector } from '../app/hooks'
+import { selectBookList } from '../features/bookSlice'
+import { eventDispatcher } from "../utils/SCUtil"
 
 
 const style = {
@@ -35,6 +40,7 @@ function SCBookModal() {
   const [selectedSection, setSelectedSection]   = useState(0)
   const handleOpen                              = () => setOpen(true)
   const dispatch                                = useAppDispatch()
+  const bookmarkList                            = useAppSelector(selectBookList)
 
 
   useEffect(() => {
@@ -44,14 +50,28 @@ function SCBookModal() {
     }
 })
 
-const addToBookmark = () => {
-  // dispatch(addProduct(data))
-  dispatch(setAlert({ status: true }))
+const data = {
+  ...book,
+  qty : 1
+}
+
+const handleBookmark = () => {
+  const sameItem = bookmarkList.findIndex(item => item.id === data.id)
+
+  if(sameItem !== -1) {
+    dispatch(removeBook(data))
+    dispatch(setAlert({ status: true, msg: "Remove from Bookmark" }))
+  }
+  else {
+    dispatch(addBook(data))
+    dispatch(setAlert({ status: true, msg: "Added to Bookmark" }))
+  }
 }
 
 const handleClose = () => {
   setOpen(false)
   setOpenSection(false)
+  eventDispatcher('refreshBookmark', {})
 }
 
 const onEventBook = (event: any) => {
@@ -88,7 +108,7 @@ const onCloseSection = () => {
                 </IconButton>
               </div>
               <div className="btnBookmarkBook">
-                <IconButton onClick={() => addToBookmark()}>
+                <IconButton onClick={() => handleBookmark()}>
                   <BookmarkIcon fontSize="medium" />
                 </IconButton>
               </div>
@@ -139,7 +159,7 @@ const onCloseSection = () => {
             <div className="modalReadBookContainer">
               <div className="btnReadBookBack">
                 <IconButton onClick={onCloseSection}>
-                  <ArrowBackIosNewIcon fontSize="large" />
+                  <ArrowBackIosNewIcon fontSize="medium" />
                 </IconButton>
               </div>
 

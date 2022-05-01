@@ -1,8 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import bookReducer from '../features/bookSlice'
 import alertReducer from '../features/alertSlice'
 
 export const store = configureStore({
   reducer: {
+    books     : bookReducer,
     alert     : alertReducer
   },
 });

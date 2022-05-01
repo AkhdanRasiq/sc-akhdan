@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField'
 import { ICategoryProps, ICategoryState } from "../../utils/SCInterface"
 
 
-function SCBodyHeader({ a_arrCategories, callbackOnSearchChange, callbackOnCategorySelected }: ICategoryProps) {
+function SCBodyHeader({ a_arrCategories, callbackOnSearchChange, callbackOnCategorySelected, a_bIsBookmark = false }: ICategoryProps) {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [searchText, setSearchText]             = useState('')
   const isMounted                               = useRef(false)
@@ -35,36 +35,41 @@ function SCBodyHeader({ a_arrCategories, callbackOnSearchChange, callbackOnCateg
   return (
     <div className="bodyHeaderContainer">
       <div className="bodyHeaderContent">
-        <h2>Explore</h2>
+        <h2>{a_bIsBookmark ? "Bookmark" : "Explore"}</h2>
         <TextField
           sx        = {{ marginTop: "25px" }}
           id        = "outlined-basic" label="Search"
           variant   = "outlined"
-          disabled  = {selectedCategory != '' ? false : true}
+          // disabled  = {selectedCategory != '' ? false : (a_bIsBookmark ? false : true)}
           onChange  = {onSearchTyped}
           value     = {searchText}
           fullWidth
         />
 
-        <div className="bodyHeaderContentFilter">
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Categories</InputLabel>
-              <Select
-                labelId       = "demo-simple-select-label"
-                id            = "demo-simple-select"
-                defaultValue  = {selectedCategory}
-                value         = {selectedCategory}
-                label         = "Categories"
-                onChange      = {onCategoryChange}
-              >
-                {a_arrCategories.map((item: ICategoryState) => (
-                  <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-        </div>
+        { a_bIsBookmark
+        ?
+          <></>
+        :
+          <div className="bodyHeaderContentFilter">
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Categories</InputLabel>
+                <Select
+                  labelId       = "demo-simple-select-label"
+                  id            = "demo-simple-select"
+                  defaultValue  = {selectedCategory}
+                  value         = {selectedCategory}
+                  label         = "Categories"
+                  onChange      = {onCategoryChange}
+                >
+                  {a_arrCategories.map((item: ICategoryState) => (
+                    <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          </div>
+        }
       </div>
     </div>
   )
