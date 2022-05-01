@@ -8,5 +8,6 @@
     "base"        : "",
     "categories"  : "/fee-assessment-categories",
     "books"       : "/fee-assessment-books"
-  }
+  },
+  "alert_show_ms" : 3000
 }

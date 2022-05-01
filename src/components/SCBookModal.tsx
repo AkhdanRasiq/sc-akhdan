@@ -7,8 +7,14 @@ import ArticleIcon from '@mui/icons-material/Article'
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import { IconButton } from "@mui/material"
+import CloseIcon from '@mui/icons-material/Close'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
+
+import { useAppDispatch } from '../app/hooks'
+import { setAlert } from '../features/alertSlice'
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -28,6 +34,7 @@ function SCBookModal() {
   const [openSection, setOpenSection]           = useState(false)
   const [selectedSection, setSelectedSection]   = useState(0)
   const handleOpen                              = () => setOpen(true)
+  const dispatch                                = useAppDispatch()
 
 
   useEffect(() => {
@@ -36,6 +43,11 @@ function SCBookModal() {
         window.removeEventListener("book", onEventBook)
     }
 })
+
+const addToBookmark = () => {
+  // dispatch(addProduct(data))
+  dispatch(setAlert({ status: true }))
+}
 
 const handleClose = () => {
   setOpen(false)
@@ -70,6 +82,17 @@ const onCloseSection = () => {
           { !openSection
             ?
             <div className="modalParentContainer">
+              <div className="btnCloseModalBook">
+                <IconButton onClick={handleClose}>
+                  <CloseIcon fontSize="medium" />
+                </IconButton>
+              </div>
+              <div className="btnBookmarkBook">
+                <IconButton onClick={() => addToBookmark()}>
+                  <BookmarkIcon fontSize="medium" />
+                </IconButton>
+              </div>
+
               <img className="imgBookModalCover" src={book.cover_url} alt={book.title} />
               <div className="contentContainer">
                 <Typography id="modal-modal-title" variant="h3" component="h2">
@@ -139,14 +162,6 @@ const onCloseSection = () => {
                     </Typography>
                   </div>
                 ))}
-                {/* <div>
-                    <img src="assets/2.jpeg" />
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src="assets/3.jpeg" />
-                    <p className="legend">Legend 3</p>
-                </div> */}
             </Carousel>
             </div>
           }

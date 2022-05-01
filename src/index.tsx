@@ -5,9 +5,12 @@ import reportWebVitals from './reportWebVitals'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import router from './static/router'
-import Header from './components/SCHeader'
+import SCHeader from './components/SCHeader'
 import SCBookModal from './components/SCBookModal'
-// import AlertCustom from './components/Util/AlertCustom'
+import SCAlertCustom from './components/SCUtil/SCAlertCustom'
+
+import { store } from './app/store';
+import { Provider } from 'react-redux';
 
 
 const root = ReactDOM.createRoot(
@@ -15,15 +18,18 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Router>
-      <Header />
-      <SCBookModal />
-      <Routes>
-        {router.map((data) => (
-          <Route key={data.id} path={data.path} element={<data.element />} />
-        ))}
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <SCAlertCustom />
+      <Router>
+        <SCHeader />
+        <SCBookModal />
+        <Routes>
+          {router.map((data) => (
+            <Route key={data.id} path={data.path} element={<data.element />} />
+          ))}
+        </Routes>
+      </Router>
+    </Provider>
   </React.StrictMode>
 )
 

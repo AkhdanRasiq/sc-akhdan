@@ -1,6 +1,15 @@
+import { AlertColor } from '@mui/material'
+
+
 interface _IBookSections {
   title                       : string,
   content                     : string
+}
+
+export interface IAlert {
+  status      : boolean,
+  severity    : AlertColor,
+  msg         : string
 }
 
 

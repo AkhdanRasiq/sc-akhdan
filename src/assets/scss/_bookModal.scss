@@ -50,6 +50,29 @@
   flex-direction: column;
 }
 
+.btnCloseModalBook {
+  display: none;
+  position: fixed;
+  z-index: 1002;
+  top: 0;
+  left: 0;
+  margin-top: 0px;
+  margin-left: 0px;
+  text-align: left;
+  width: fit-content;
+}
+
+.btnBookmarkBook {
+  position: fixed;
+  z-index: 1002;
+  top: 0;
+  right: 0;
+  margin-top: 0px;
+  margin-left: 0px;
+  text-align: right;
+  width: fit-content;
+}
+
 .btnReadBookBack {
   position: fixed;
   z-index: 1002;
@@ -130,11 +153,19 @@
   .modalParentContainer {
     @include mxModalParentContainer();
   }
+
+  .btnCloseModalBook {
+    display: flex;
+  }
 }
 
 @media only screen and (min-width: 860px) and (max-width: 1100px) {
   .imgBookModalCover {
     height: 450px;
     width: fit-content;
+  }
+
+  .btnCloseModalBook {
+    display: flex;
   }
 }
