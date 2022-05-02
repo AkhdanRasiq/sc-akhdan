@@ -1,5 +1,5 @@
-# SC-AKHDAN
-
+# SC-AKHDAN V2
+This branch containing furthur update from the technical-test. Please refer to master branch for reviewing.
 
 ## MAIN TECH STACK
 
